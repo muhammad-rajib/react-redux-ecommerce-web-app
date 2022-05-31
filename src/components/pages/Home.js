@@ -1,11 +1,13 @@
-import React from "react";
+// libraries
+import { React, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
-import Product from "../Product";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listProducts } from "../../services/actions/productActions";
+// components
+import Product from "../Product";
 import Loader from "../Loader";
 import Message from "../Message";
+// redux actions
+import { listProducts } from "../../services/actions/productActions";
 
 function Home() {
   const dispatch = useDispatch();
