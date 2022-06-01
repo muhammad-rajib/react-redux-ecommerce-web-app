@@ -67,12 +67,7 @@ export default function LoginPage() {
 
         <Row className="py-3">
           <Col>
-            New Customers?{" "}
-            <Link
-              to={redirect ? `/register?redirect=${redirect}` : "/register"}
-            >
-              Register
-            </Link>
+            New Customers? <Link to="/register">Register</Link>
           </Col>
         </Row>
       </Form>

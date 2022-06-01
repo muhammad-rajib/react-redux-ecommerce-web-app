@@ -7,6 +7,7 @@ import Home from "../components/pages/Home";
 import LoginPage from "./pages/loginPage";
 import ProductPage from "../components/pages/PorductPage";
 import Cart from "../components/pages/Cart";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Container>
             <Routes>
               <Route exact path="/" element={<Home />} />
+              <Route path="/register" element={<RegisterPage />}></Route>
               <Route path="/login" element={<LoginPage />}></Route>
               <Route path="/products/:id" element={<ProductPage />}></Route>
               <Route path="/cart">
