@@ -13,6 +13,7 @@ export default function LoginPage() {
 
   const { search } = useLocation();
   const redirect = search ? search.split("=")[1] : "/";
+  console.log("Redirect: ", redirect);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
