@@ -22,7 +22,6 @@ export default function RegisterPage() {
   const { userInfo, error, loading } = userRegister;
 
   const navigate = useNavigate();
-  console.log("Redirect:", redirect);
 
   useEffect(() => {
     if (userInfo) {
@@ -48,7 +47,7 @@ export default function RegisterPage() {
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
-        <Form.Group controlId="name">
+        <Form.Group className="mb-3" controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control
             required
@@ -58,7 +57,7 @@ export default function RegisterPage() {
             onChange={(e) => setName(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Form.Group controlId="email">
+        <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
             required
@@ -68,7 +67,7 @@ export default function RegisterPage() {
             onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Form.Group controlId="password">
+        <Form.Group className="mb-3" controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
             required
@@ -78,7 +77,7 @@ export default function RegisterPage() {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Form.Group controlId="passwordConfirm">
+        <Form.Group className="mb-3" controlId="passwordConfirm">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             required
