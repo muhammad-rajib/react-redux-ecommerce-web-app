@@ -9,6 +9,7 @@ import ProductPage from "../components/pages/PorductPage";
 import Cart from "../components/pages/Cart";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
+import ShippingPage from "./pages/ShippingPage";
 
 function App() {
   return (
@@ -19,10 +20,11 @@ function App() {
           <Container>
             <Routes>
               <Route exact path="/" element={<Home />} />
-              <Route path="/register" element={<RegisterPage />}></Route>
-              <Route path="/login" element={<LoginPage />}></Route>
-              <Route path="/profile" element={<ProfilePage />}></Route>
-              <Route path="/products/:id" element={<ProductPage />}></Route>
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/products/:id" element={<ProductPage />} />
+              <Route path="/shipping" element={<ShippingPage />} />
               <Route path="/cart">
                 <Route index element={<Cart />} />
                 <Route path=":id" element={<Cart />} />
