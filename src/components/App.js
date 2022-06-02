@@ -10,6 +10,7 @@ import Cart from "../components/pages/Cart";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import ShippingPage from "./pages/ShippingPage";
+import PaymentPage from "./pages/PaymentPage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/products/:id" element={<ProductPage />} />
               <Route path="/shipping" element={<ShippingPage />} />
+              <Route path="/payment" element={<PaymentPage />} />
               <Route path="/cart">
                 <Route index element={<Cart />} />
                 <Route path=":id" element={<Cart />} />
