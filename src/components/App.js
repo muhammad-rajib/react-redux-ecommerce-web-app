@@ -11,6 +11,7 @@ import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import ShippingPage from "./pages/ShippingPage";
 import PaymentPage from "./pages/PaymentPage";
+import PlaceholderPage from "./pages/PlaceholderPage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               <Route path="/products/:id" element={<ProductPage />} />
               <Route path="/shipping" element={<ShippingPage />} />
               <Route path="/payment" element={<PaymentPage />} />
+              <Route path="/placeholder" element={<PlaceholderPage />} />
               <Route path="/cart">
                 <Route index element={<Cart />} />
                 <Route path=":id" element={<Cart />} />
