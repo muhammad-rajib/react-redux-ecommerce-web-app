@@ -15,6 +15,7 @@ import ShippingPage from "./pages/ShippingPage";
 import PaymentPage from "./pages/PaymentPage";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import OrderPage from "./pages/OrderPage";
+import UserListPage from "../components/pages/UserListPage";
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/profile" element={<ProfilePage />} />
+
+              <Route path="/admin/userlist" element={<UserListPage />} />
 
               <Route path="/products/:id" element={<ProductPage />} />
               <Route path="/cart">
