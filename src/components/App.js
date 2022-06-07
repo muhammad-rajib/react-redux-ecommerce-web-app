@@ -17,6 +17,8 @@ import PlaceholderPage from "./pages/PlaceholderPage";
 import OrderPage from "./pages/OrderPage";
 import UserListPage from "../components/pages/UserListPage";
 import UserEditPage from "../components/pages/UserEditPage";
+import ProductListPage from "./pages/ProductListPage";
+import OrderListPage from "./pages/OrderListPage";
 
 function App() {
   return (
@@ -36,6 +38,8 @@ function App() {
                 path="/admin/user/:id/edit"
                 element={<UserEditPage />}
               ></Route>
+              <Route path="/admin/productlist" element={<ProductListPage />} />
+              <Route path="/admin/orderlist" element={<OrderListPage />} />
 
               <Route path="/products/:id" element={<ProductPage />} />
               <Route path="/cart">
