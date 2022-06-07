@@ -9,16 +9,20 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/loginPage";
 import ProfilePage from "./pages/ProfilePage";
 
-import ProductPage from "../components/pages/PorductPage";
+import UserListPage from "../components/pages/UserListPage";
+import UserEditPage from "../components/pages/UserEditPage";
+
 import Cart from "../components/pages/Cart";
 import ShippingPage from "./pages/ShippingPage";
 import PaymentPage from "./pages/PaymentPage";
 import PlaceholderPage from "./pages/PlaceholderPage";
+
 import OrderPage from "./pages/OrderPage";
-import UserListPage from "../components/pages/UserListPage";
-import UserEditPage from "../components/pages/UserEditPage";
-import ProductListPage from "./pages/ProductListPage";
 import OrderListPage from "./pages/OrderListPage";
+
+import ProductPage from "../components/pages/PorductPage";
+import ProductListPage from "./pages/ProductListPage";
+import ProductEditPage from "./pages/ProductEditPage";
 
 function App() {
   return (
@@ -40,6 +44,10 @@ function App() {
               ></Route>
               <Route path="/admin/productlist" element={<ProductListPage />} />
               <Route path="/admin/orderlist" element={<OrderListPage />} />
+              <Route
+                path="/admin/product/:id/edit"
+                element={<ProductEditPage />}
+              />
 
               <Route path="/products/:id" element={<ProductPage />} />
               <Route path="/cart">
