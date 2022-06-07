@@ -25,6 +25,7 @@ export default function RegisterPage() {
 
   useEffect(() => {
     if (userInfo) {
+      console.log(userInfo);
       navigate(redirect);
     }
   }, [userInfo, navigate, redirect]);
