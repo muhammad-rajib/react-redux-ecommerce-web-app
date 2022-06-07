@@ -14,13 +14,14 @@ function Header() {
   };
 
   return (
-    <header>
+    <header style={{ marginBottom: "60px" }}>
       <Navbar
         className="nav"
         bg="dark"
         variant="dark"
         expand="lg"
         collapseOnSelect
+        fixed="top"
       >
         <Container>
           <LinkContainer to="/">
