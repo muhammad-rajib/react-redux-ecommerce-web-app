@@ -14,7 +14,7 @@ function Header() {
   };
 
   return (
-    <header style={{ marginBottom: "60px" }}>
+    <header style={{ marginBottom: "80px" }}>
       <Navbar
         className="nav"
         bg="dark"
