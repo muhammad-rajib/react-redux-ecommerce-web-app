@@ -16,6 +16,7 @@ import PaymentPage from "./pages/PaymentPage";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import OrderPage from "./pages/OrderPage";
 import UserListPage from "../components/pages/UserListPage";
+import UserEditPage from "../components/pages/UserEditPage";
 
 function App() {
   return (
@@ -31,6 +32,10 @@ function App() {
               <Route path="/profile" element={<ProfilePage />} />
 
               <Route path="/admin/userlist" element={<UserListPage />} />
+              <Route
+                path="/admin/user/:id/edit"
+                element={<UserEditPage />}
+              ></Route>
 
               <Route path="/products/:id" element={<ProductPage />} />
               <Route path="/cart">

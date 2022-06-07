@@ -1,3 +1,8 @@
+nav {
+  height: 60px;
+  top: 0;
+}
+
 main {
   min-height: 80vh;
 }
