@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
-import { Row, Col, ListGroup, Image, Card } from "react-bootstrap";
+import { Row, Col, ListGroup, Image, Card, Button } from "react-bootstrap";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getOrderDetails } from "../../services/actions/orderActions";
+import {
+  getOrderDetails,
+  deliverOrder,
+} from "../../services/actions/orderActions";
 import Loader from "../Loader";
 import Message from "../Message";
+import { ORDER_DELIVER_RESET } from "../../services/actionTypes/orderReqTypes";
 
 export default function OrderPage() {
   const { id } = useParams();
@@ -13,13 +17,18 @@ export default function OrderPage() {
   const navigate = useNavigate();
 
   const orderId = id;
-  console.log(orderId);
   const orderDetails = useSelector((state) => state.orderDetails);
-  console.log(orderDetails);
   const { loading, error, order } = orderDetails;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const {
+    loading: loadingDeliver,
+    success: successDeliver,
+    error: errorDeliver,
+  } = orderDeliver;
 
   if (!loading && !error) {
     order.itemsPrice = order.orderItems
@@ -31,10 +40,17 @@ export default function OrderPage() {
     if (!userInfo) {
       navigate("/login");
     }
-    if (!order || order._id !== Number(orderId)) {
+    if (!order || order._id !== Number(orderId) || successDeliver) {
       dispatch(getOrderDetails(orderId));
+      dispatch({
+        type: ORDER_DELIVER_RESET,
+      });
     }
-  }, [userInfo, navigate, order, orderId, dispatch]);
+  }, [userInfo, navigate, order, orderId, dispatch, successDeliver]);
+
+  const deliverHandle = () => {
+    dispatch(deliverOrder(order));
+  };
 
   return loading ? (
     <Loader />
@@ -157,6 +173,23 @@ export default function OrderPage() {
                 </Row>
               </ListGroup.Item>
             </ListGroup>
+
+            {loadingDeliver && <Loader />}
+            {errorDeliver && <Message variant="danger">{errorDeliver}</Message>}
+            {userInfo &&
+              userInfo.isAdmin &&
+              order.isPaid &&
+              !order.isDelivered && (
+                <ListGroup.Item>
+                  <Button
+                    type="primary"
+                    className="btn btn-block"
+                    onClick={deliverHandle}
+                  >
+                    Mark As Delivered
+                  </Button>
+                </ListGroup.Item>
+              )}
           </Card>
         </Col>
       </Row>
