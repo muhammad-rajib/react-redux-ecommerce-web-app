@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import { Form, Button } from "react-bootstrap";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import Loader from "../Loader";
 import Message from "../Message";
 import FormContainer from "../FormContainer";
-import { listProductDetails } from "../../services/actions/productActions";
+import {
+  listProductDetails,
+  updateProduct,
+} from "../../services/actions/productActions";
+import { PRODUCT_UPDATE_RESET } from "../../services/actionTypes/productReqTypes";
+import axios from "axios";
 
 export default function ProductEditPage() {
   const [name, setName] = useState("");
@@ -16,35 +22,88 @@ export default function ProductEditPage() {
   const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState("");
-  //const [uploading, setUploading] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const productDetails = useSelector((state) => state.productDetails);
   const { error, loading, product } = productDetails;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const productUpdate = useSelector((state) => state.productUpdate);
+  const {
+    error: errorUpdate,
+    loading: loadingUpdate,
+    success: successUpdate,
+  } = productUpdate;
+
   useEffect(() => {
-    if (!product.name || product._id !== Number(id)) {
-      dispatch(listProductDetails(id));
+    if (successUpdate) {
+      dispatch({ type: PRODUCT_UPDATE_RESET });
+      navigate("/admin/productlist");
     } else {
-      setName(product.name);
-      setPrice(product.price);
-      setImage(product.image);
-      setBrand(product.brand);
-      setCategory(product.category);
-      setCountInStock(product.countInStock);
-      setDescription(product.description);
+      if (!product.name || product._id !== Number(id)) {
+        dispatch(listProductDetails(id));
+      } else {
+        setName(product.name);
+        setPrice(product.price);
+        setImage(product.image);
+        setBrand(product.brand);
+        setCategory(product.category);
+        setCountInStock(product.countInStock);
+        setDescription(product.description);
+      }
     }
-  }, [dispatch, product, id]);
+  }, [dispatch, product, id, successUpdate, navigate]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("request for update");
+    dispatch(
+      updateProduct({
+        _id: id,
+        name,
+        price,
+        image,
+        brand,
+        category,
+        countInStock,
+        description,
+      })
+    );
   };
 
-  const uploadFileHandler = () => {
-    console.log("request for file upload");
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+
+    formData.append("image", file);
+    formData.append("product_id", id);
+
+    setUploading(true);
+
+    try {
+      const config = {
+        headers: {
+          "Content-type": "multipart/form-data",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.post(
+        `/api/products/upload/image/`,
+        formData,
+        config
+      );
+
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      setUploading(false);
+    }
   };
 
   return (
@@ -53,6 +112,8 @@ export default function ProductEditPage() {
 
       <FormContainer>
         <h1>Edit Product</h1>
+        {loadingUpdate && <Loader />}
+        {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
 
         {loading ? (
           <Loader />
@@ -84,20 +145,19 @@ export default function ProductEditPage() {
               <Form.Label>Image</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter image"
+                placeholder="upload image"
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               ></Form.Control>
 
-              <Form.Group className="mb-2" controlId="formFileSm">
-                <input
-                  type="file"
-                  className="form-control-file mt-2"
-                  id="exampleFormControlFile1"
-                  onChange={uploadFileHandler}
-                />
-              </Form.Group>
-              {/* {uploading && <Loader />} */}
+              <input
+                type="file"
+                className="form-control-file mt-2"
+                id="exampleFormControlFile1"
+                onChange={uploadFileHandler}
+              />
+
+              {uploading && <Loader />}
             </Form.Group>
 
             <Form.Group className="mb-2" controlId="brand">
