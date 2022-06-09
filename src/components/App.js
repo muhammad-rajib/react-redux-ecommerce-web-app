@@ -20,7 +20,7 @@ import PlaceholderPage from "./pages/PlaceholderPage";
 import OrderPage from "./pages/OrderPage";
 import OrderListPage from "./pages/OrderListPage";
 
-import ProductPage from "../components/pages/PorductPage";
+import ProductPage from "../components/pages/ProductPage";
 import ProductListPage from "./pages/ProductListPage";
 import ProductEditPage from "./pages/ProductEditPage";
 
