@@ -3,6 +3,7 @@ import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { logout } from "../services/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
+import SearchBox from "./SearchBox";
 
 function Header() {
   const userLogin = useSelector((state) => state.userLogin);
@@ -14,7 +15,7 @@ function Header() {
   };
 
   return (
-    <header style={{ marginBottom: "80px" }}>
+    <header style={{ marginBottom: "100px" }}>
       <Navbar
         className="nav"
         bg="dark"
@@ -23,14 +24,15 @@ function Header() {
         collapseOnSelect
         fixed="top"
       >
-        <Container>
+        <Container fluid>
           <LinkContainer to="/">
             <Navbar.Brand>Online Shop</Navbar.Brand>
           </LinkContainer>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
+            <SearchBox />
+            <Nav className="ml-auto">
               <LinkContainer to="/">
                 <Nav.Link>Home</Nav.Link>
               </LinkContainer>
@@ -40,6 +42,20 @@ function Header() {
                   <i className="fas fa-shopping-cart"></i>Cart
                 </Nav.Link>
               </LinkContainer>
+
+              {userInfo && userInfo.isAdmin && (
+                <NavDropdown title="Admin" id="adminuser">
+                  <LinkContainer to="/admin/userlist">
+                    <NavDropdown.Item>Users</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/admin/productlist">
+                    <NavDropdown.Item>Products</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/admin/orderlist">
+                    <NavDropdown.Item>Orders</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              )}
 
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id="username">
@@ -57,20 +73,6 @@ function Header() {
                     <i className="fas fa-user"></i>Login
                   </Nav.Link>
                 </LinkContainer>
-              )}
-
-              {userInfo && userInfo.isAdmin && (
-                <NavDropdown title="Admin" id="adminuser">
-                  <LinkContainer to="/admin/userlist">
-                    <NavDropdown.Item>Users</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to="/admin/productlist">
-                    <NavDropdown.Item>Products</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to="/admin/orderlist">
-                    <NavDropdown.Item>Orders</NavDropdown.Item>
-                  </LinkContainer>
-                </NavDropdown>
               )}
             </Nav>
           </Navbar.Collapse>
