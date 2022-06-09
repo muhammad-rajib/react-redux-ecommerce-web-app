@@ -29,6 +29,7 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
 } from "../actionTypes/userReqTypes";
+import { PRODUCT_CREATE_REVIEW_RESET } from "../actionTypes/productReqTypes";
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -75,6 +76,7 @@ export const logout = () => (dispatch) => {
   dispatch({ type: USER_REGISTER_RESET });
   dispatch({ type: ORDER_LIST_MY_RESET });
   dispatch({ type: USER_LIST_RESET });
+  dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
 };
 
 export const register = (name, email, password) => async (dispatch) => {
