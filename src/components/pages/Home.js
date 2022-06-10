@@ -6,6 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import { Pagination, Button } from "react-bootstrap";
 // components
 import Product from "../Product";
+import ProductCarousel from "../ProductCarousel";
 import Loader from "../Loader";
 import Message from "../Message";
 // redux actions
@@ -27,6 +28,8 @@ function Home() {
 
   return (
     <div>
+      {!keyword && <ProductCarousel />}
+
       <h1>Latest Products</h1>
       {loading ? (
         <Loader />
