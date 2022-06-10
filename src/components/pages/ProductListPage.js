@@ -140,21 +140,24 @@ export default function ProductListPage() {
               ))}
             </tbody>
           </Table>
-          {pages > 1 && (
-            <Pagination>
-              {[...Array(pages).keys()].map((x) => (
-                <Button
-                  key={x + 1}
-                  active={x + 1 === page}
-                  onClick={(e) => setPageNumber(x + 1)}
-                >
-                  {x + 1}
-                </Button>
-              ))}
-            </Pagination>
-          )}
         </div>
       )}
+      <div>
+        {pages > 1 && (
+          <Pagination>
+            {[...Array(pages).keys()].map((x) => (
+              <Button
+                style={{ font: "bold" }}
+                key={x + 1}
+                active={x + 1 === page}
+                onClick={(e) => setPageNumber(x + 1)}
+              >
+                {x + 1}
+              </Button>
+            ))}
+          </Pagination>
+        )}
+      </div>
     </div>
   );
 }
