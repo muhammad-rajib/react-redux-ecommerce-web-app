@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { LinkContainer } from "react-router-bootstrap";
-import { Table, Row, Col, Button } from "react-bootstrap";
+import { Table, Row, Col, Button, Pagination } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import Loader from "../Loader";
 import Message from "../Message";
@@ -18,7 +18,7 @@ export default function ProductListPage() {
   const navigate = useNavigate();
 
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
+  const { loading, error, products, page, pages } = productList;
 
   const productDelete = useSelector((state) => state.productDelete);
   const {
@@ -38,24 +38,31 @@ export default function ProductListPage() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const [searchParams] = useSearchParams();
+  const keyword = searchParams.get("keyword");
+
+  const [pageNumber, setPageNumber] = useState();
+
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET });
     if (!userInfo.isAdmin) {
       navigate("/login");
+    }
+
+    if (successCreate) {
+      navigate(`/admin/product/${createdProduct._id}/edit`);
     } else {
-      if (successCreate) {
-        navigate(`/admin/product/${createdProduct._id}/edit`);
-      } else {
-        dispatch(listProducts());
-      }
+      dispatch(listProducts(keyword, pageNumber));
     }
   }, [
+    pageNumber,
     navigate,
     userInfo,
     successDelete,
     successCreate,
     dispatch,
     createdProduct,
+    keyword,
   ]);
 
   const createProducthandler = (e) => {
@@ -133,6 +140,19 @@ export default function ProductListPage() {
               ))}
             </tbody>
           </Table>
+          {pages > 1 && (
+            <Pagination>
+              {[...Array(pages).keys()].map((x) => (
+                <Button
+                  key={x + 1}
+                  active={x + 1 === page}
+                  onClick={(e) => setPageNumber(x + 1)}
+                >
+                  {x + 1}
+                </Button>
+              ))}
+            </Pagination>
+          )}
         </div>
       )}
     </div>
