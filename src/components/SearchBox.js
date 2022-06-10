@@ -10,14 +10,14 @@ export default function SearchBox() {
   const submitHandler = (e) => {
     e.preventDefault();
     if (keyword) {
-      navigate(`/?keyword=${keyword}`);
+      navigate(`/?keyword=${keyword}&page=1`);
     } else {
       navigate(-1);
     }
   };
 
   return (
-    <Form className="d-flex" onSubmit={submitHandler} inline>
+    <Form className="d-flex" onSubmit={submitHandler}>
       <Form.Control
         type="text"
         name="q"
