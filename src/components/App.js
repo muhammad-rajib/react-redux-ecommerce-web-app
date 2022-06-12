@@ -1,5 +1,5 @@
 import { Container } from "react-bootstrap";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
 
 import Header from "./Header";
 import Home from "../components/pages/Home";
